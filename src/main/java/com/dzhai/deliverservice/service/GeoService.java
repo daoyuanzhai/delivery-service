@@ -55,7 +55,8 @@ public class GeoService {
             val row = sheet.getRow(index);
 
 //            if (row.getCell(8) != null && row.getCell(9) != null) {
-            if (row.getCell(6) != null && row.getCell(7) != null) {
+            if (row.getCell(6) != null && row.getCell(7) != null
+                    && row.getCell(6).getNumericCellValue() != 0 && row.getCell(7).getNumericCellValue() != 0) {
                 continue;
             }
             var address = row.getCell(1) == null ? "" : row.getCell(1).getStringCellValue();
@@ -78,7 +79,7 @@ public class GeoService {
                 zip = row.getCell(3).getStringCellValue();
             } catch (IllegalStateException ex) {
                 log.error(ex.getMessage());
-                zip = String.valueOf(row.getCell(3).getNumericCellValue());
+                zip = String.valueOf((int)row.getCell(3).getNumericCellValue());
             }
             zip = zip.length() < 5 ? "0" + zip : zip;
 
